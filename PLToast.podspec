@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   				       	   }
   s.social_media_url	= "http://twitter.com/ilduraes"
   s.platform     		= :ios, "6.0"
-  s.source       = { :git => "https://github.com/lduraes/toast-notifications-ios.git" , :commit => "6cdd295"}
+  s.source       = { :git => "https://github.com/lduraes/toast-notifications-ios.git" , :commit => "154a620"}
   s.source_files = "*.{h,m}"
   s.framework    = "QuartzCore"
   s.requires_arc = true

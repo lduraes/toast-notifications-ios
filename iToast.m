@@ -90,14 +90,20 @@ static iToastSettings *sharedSettings = nil;
         
         switch ([theSettings imageLocation]) {
             case iToastImageLocationLeft:
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 [label setTextAlignment:UITextAlignmentLeft];
-                label.center = CGPointMake(image.size.width + kComponentPadding * 2 
+#pragma GCC diagnostic pop
+                label.center = CGPointMake(image.size.width + kComponentPadding * 2
                                            + (v.frame.size.width - image.size.width - kComponentPadding * 2) / 2, 
                                            v.frame.size.height / 2);
                 break;
             case iToastImageLocationTop:
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 [label setTextAlignment:UITextAlignmentCenter];
-                label.center = CGPointMake(v.frame.size.width / 2, 
+#pragma GCC diagnostic pop
+                label.center = CGPointMake(v.frame.size.width / 2,
                                            (image.size.height + kComponentPadding * 2 
                                             + (v.frame.size.height - image.size.height - kComponentPadding * 2) / 2));
                 break;
@@ -114,13 +120,18 @@ static iToastSettings *sharedSettings = nil;
 	lbfrm.origin.y = ceil(lbfrm.origin.y);
 	label.frame = lbfrm;
 	[v addSubview:label];
-	[label release];
-	
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    [label release];
+#pragma GCC diagnostic pop
 	if (image) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 		imageView.frame = [self _frameForImage:type inToastFrame:v.frame];
 		[v addSubview:imageView];
-		[imageView release];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        [imageView release];
+#pragma GCC diagnostic pop
 	}
 	
 	v.backgroundColor = [UIColor colorWithRed:theSettings.bgRed green:theSettings.bgGreen blue:theSettings.bgBlue alpha:theSettings.bgAlpha];
@@ -230,7 +241,8 @@ static iToastSettings *sharedSettings = nil;
 	v.alpha = 1;
 	[UIView commitAnimations];
 	
-	view = [v retain];
+//	view = [v retain];
+    view = v;
 	
 	[v addTarget:self action:@selector(hideToast:) forControlEvents:UIControlEventTouchDown];
 }
@@ -299,7 +311,8 @@ static iToastSettings *sharedSettings = nil;
 
 
 + (iToast *) makeText:(NSString *) _text{
-	iToast *toast = [[[iToast alloc] initWithText:_text] autorelease];
+	//iToast *toast = [[[iToast alloc] initWithText:_text] autorelease];
+    iToast *toast = [[iToast alloc] initWithText:_text];
 	
 	return toast;
 }
