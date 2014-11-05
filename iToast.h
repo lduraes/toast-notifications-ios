@@ -56,6 +56,13 @@ typedef enum {
 
 @class iToastSettings;
 
+@protocol iToastDelegate <NSObject>
+
+@optional
+-(void)didUndo;
+
+@end
+
 @interface iToast : NSObject {
 	iToastSettings *_settings;
 	
@@ -64,6 +71,8 @@ typedef enum {
 	UIView *view;
 	NSString *text;
 }
+
+@property(assign, nonatomic) id<iToastDelegate>delegate;
 
 - (void) show;
 - (void) show:(iToastType) type;
@@ -82,7 +91,8 @@ typedef enum {
 - (iToast *) setBgAlpha:(CGFloat) bgAlpha;
 
 + (iToast *) makeText:(NSString *) text;
-
++(iToast *)makeText:(NSString *)text withController:(UIViewController *)controller;
+    
 -(iToastSettings *) theSettings;
 
 @end

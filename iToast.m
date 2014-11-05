@@ -279,6 +279,10 @@ static iToastSettings *sharedSettings = nil;
 }
 
 - (void) hideToast:(NSTimer*)theTimer{
+    if([self.delegate respondsToSelector:@selector(didUndo)]) {
+        [self.delegate didUndo];
+    }
+
 	[UIView beginAnimations:nil context:NULL];
 	view.alpha = 0;
 	[UIView commitAnimations];
@@ -300,6 +304,12 @@ static iToastSettings *sharedSettings = nil;
 	return toast;
 }
 
++(iToast *)makeText:(NSString *)text withController:(UIViewController *)controller {
+    iToast *toast = [self makeText:text];
+    [toast setDelegate:controller];
+    
+    return toast;
+}
 
 - (iToast *) setDuration:(NSInteger ) duration{
 	[self theSettings].duration = duration;
